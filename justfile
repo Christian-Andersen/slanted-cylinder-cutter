@@ -1,0 +1,24 @@
+set dotenv-load
+
+alias b := build
+alias c := check
+alias r := run
+alias ci := continuous_integration
+
+[private]
+default:
+    @just --list
+
+audit:
+    npm audit
+
+check:
+    prek run --all-files
+
+build:
+    npm run build
+
+run:
+    npm start
+
+continuous_integration: audit check build
