@@ -14,5 +14,17 @@
       "groupName": "Nix flake inputs",
       "extends": ["schedule:weekly"]
     }
+  ],
+  "customManagers": [
+    {
+      "description": "Track npm packages pinned via npx in prek.toml hook entries",
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)prek\\.toml$/"],
+      "matchStrings": [
+        "npx(?: --yes)? (?<depName>[a-z0-9][a-z0-9-]*)@(?<currentValue>v?\\d+(?:\\.\\d+)*)"
+      ],
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm"
+    }
   ]
 }
