@@ -2,5 +2,17 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "nix": {
     "enabled": true
-  }
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:weekly"]
+  },
+  "packageRules": [
+    {
+      "description": "Group all Nix flake input updates into one PR, aligned with the weekly flake.lock refresh",
+      "matchManagers": ["nix"],
+      "groupName": "Nix flake inputs",
+      "extends": ["schedule:weekly"]
+    }
+  ]
 }
