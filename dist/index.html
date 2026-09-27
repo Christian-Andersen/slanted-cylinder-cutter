@@ -30,7 +30,7 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        
+
         /* --- Two-Column Layout --- */
         .main-layout {
             display: flex;
@@ -85,7 +85,7 @@
         /* --- Visualization & Table Area --- */
         .visualization-area {
             text-align: center;
-            position: sticky; 
+            position: sticky;
             top: 20px;
         }
         .pipe-display {
@@ -100,7 +100,7 @@
             border-radius: 4px;
             background-color: #fafafa;
         }
-        
+
         canvas {
             border: 2px solid #333;
             margin-bottom: 10px;
@@ -285,7 +285,7 @@
                     if (el) el.value = results[key].toFixed(2);
                 }
             }
-            
+
             const splits = parseInt(document.getElementById('splits').value);
             if (!isNaN(splits) && splits >= 2) {
                 generateSplitTable(splits, r, h_min, alpha_rad, C);
@@ -295,7 +295,7 @@
             drawFlatCut(C, h_min, r, alpha_rad, splits);
             drawCylinder(r, h_min, alpha_rad);
         }
-        
+
         function generateSplitTable(splits, r, h_min, alpha_rad, C) {
             const container = document.getElementById('split-table-container');
             let tableHTML = `
@@ -337,7 +337,7 @@
             const ctx = canvas.getContext('2d');
             const W = canvas.width;
             const H = canvas.height;
-            
+
             ctx.clearRect(0, 0, W, H);
             if (C <= 0 || h_min < 0) return;
 
@@ -346,11 +346,11 @@
 
             const padding = 45;
             const scale = Math.min((W - padding * 2) / C, (H - padding * 2) / h_max);
-            
+
             const drawW = C * scale;
             const drawH_min = h_min * scale;
             const drawDeltaH = delta_h * scale;
-            
+
             const offsetX = (W - drawW) / 2;
             const offsetY = H - drawH_min - drawDeltaH - padding / 2;
             const bottomY = offsetY + drawH_min + drawDeltaH;
@@ -365,13 +365,13 @@
             ctx.strokeStyle = '#d9534f';
             ctx.lineWidth = 3;
             ctx.beginPath();
-            
+
             for (let i = 0; i <= drawW; i++) {
-                const x_c = (i / drawW) * C;  
+                const x_c = (i / drawW) * C;
                 const angle_at_x = x_c / r;
                 const h_c = h_min + r * Math.tan(alpha_rad) * (1 - Math.cos(angle_at_x));
                 const y = offsetY + (h_max - h_c) * scale;
-                
+
                 if (i === 0) ctx.moveTo(offsetX + i, y);
                 else ctx.lineTo(offsetX + i, y);
             }
@@ -382,10 +382,10 @@
                     const x_c = (i / splits) * C;
                     const angle_at_x = x_c / r;
                     const h_c = h_min + r * Math.tan(alpha_rad) * (1 - Math.cos(angle_at_x));
-                    
+
                     const canvasX = offsetX + x_c * scale;
                     const canvasY = offsetY + (h_max - h_c) * scale;
-                    
+
                     ctx.beginPath();
                     ctx.setLineDash([2, 3]);
                     ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
@@ -410,13 +410,13 @@
             ctx.textAlign = 'center';
             ctx.fillText(`C = ${C.toFixed(1)} mm`, offsetX + drawW / 2, H - 5);
         }
-        
+
         function drawCylinder(r, h_min, alpha_rad) {
             const canvas = document.getElementById('cylinder-canvas');
             const ctx = canvas.getContext('2d');
             const W = canvas.width;
             const H = canvas.height;
-            
+
             ctx.clearRect(0, 0, W, H);
             if (r <= 0) return;
 
